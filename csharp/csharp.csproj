@@ -65,6 +65,7 @@
     <Compile Include="ApprovalTest.cs" />
     <Compile Include="GildedRose.cs" />
     <Compile Include="GildedRoseTest.cs" />
+    <Compile Include="ProductStrategies\ConcertProductQualityUpdateStrategy.cs" />
     <Compile Include="ProductStrategies\IProductQualityUpdateStrategy.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ProductStrategyFactory.cs" />
