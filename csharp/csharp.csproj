@@ -66,7 +66,7 @@
   <ItemGroup>
     <Compile Include="Tests\ConjuredItemsTests.cs" />
     <Compile Include="ProductStrategies\ConjuredProductQualityItemStrategy.cs" />
-    <Compile Include="DefaultStrategy.cs" />
+    <Compile Include="ProductStrategies\DefaultStrategy.cs" />
     <Compile Include="ProductStrategies\AgedBrieQualityUpdateStrategy.cs" />
     <Compile Include="Tests\ApprovalTest.cs" />
     <Compile Include="GildedRose.cs" />

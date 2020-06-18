@@ -1,6 +1,6 @@
 ﻿using csharp.ProductStrategies;
 
-namespace csharp
+namespace csharp.ProductStrategies
 {
     public class DefaultStrategy : IProductQualityUpdateStrategy
     {
