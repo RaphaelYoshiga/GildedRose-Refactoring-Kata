@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using csharp.ProductStrategies;
+﻿using csharp.ProductStrategies;
 using NUnit.Framework;
 using Shouldly;
 
@@ -28,7 +23,6 @@ namespace csharp.Tests
             strategy.ShouldBeOfType<DefaultStrategy>();
         }
 
-
         [Test]
         public void InstantiateAgedBrieStrategy()
         {
@@ -36,7 +30,6 @@ namespace csharp.Tests
 
             strategy.ShouldBeOfType<AgedBrieQualityUpdateStrategy>();
         }
-
 
         [Test]
         public void InstantiateConcertStrategy()
@@ -53,6 +46,7 @@ namespace csharp.Tests
 
             strategy.ShouldBeOfType<SulfurasQualityUpdateStrategy>();
         }       
+
         [Test]
         public void InstantiateConjuredStrategy()
         {
