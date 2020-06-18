@@ -20,16 +20,15 @@ namespace csharp
 
         private void UpdateQuality(Item item)
         {
-            if (item.Name == "Sulfuras, Hand of Ragnaros")
+            var strategy = new ProductStrategyFactory().Instantiate(item);
+            if (strategy != null)
             {
-                new SulfurasQualityUpdateStrategy().UpdateQuality(item);
+                strategy.UpdateQuality(item);
                 return;
             }
 
 
-
-
-            if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
                 if (item.Quality > 0)
                 {
@@ -68,26 +67,16 @@ namespace csharp
 
             if (item.SellIn < 0)
             {
-                if (item.Name != "Aged Brie")
+                if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
-                    if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                    if (item.Quality > 0)
                     {
-                        if (item.Quality > 0)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
-                    }
-                    else
-                    {
-                        item.Quality = item.Quality - item.Quality;
+                        item.Quality = item.Quality - 1;
                     }
                 }
                 else
                 {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-                    }
+                    item.Quality = item.Quality - item.Quality;
                 }
             }
         }
