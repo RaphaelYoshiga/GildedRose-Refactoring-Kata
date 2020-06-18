@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultStrategy.cs" />
     <Compile Include="ProductStrategies\AgedBrieQualityUpdateStrategy.cs" />
     <Compile Include="ApprovalTest.cs" />
     <Compile Include="GildedRose.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="ProductStrategies\ConcertProductQualityUpdateStrategy.cs" />
     <Compile Include="ProductStrategies\IProductQualityUpdateStrategy.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="ProductStrategyFactory.cs" />
+    <Compile Include="ProductStrategies\ProductStrategyFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProductStrategies\SulfurasQualityUpdateStrategy.cs" />
