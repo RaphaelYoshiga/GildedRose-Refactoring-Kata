@@ -1,4 +1,4 @@
-﻿namespace csharp
+﻿namespace csharp.ProductStrategies
 {
     public class SulfurasQualityUpdateStrategy : IProductQualityUpdateStrategy
     {

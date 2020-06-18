@@ -1,4 +1,6 @@
-﻿namespace csharp
+﻿using csharp.ProductStrategies;
+
+namespace csharp
 {
     public class DefaultStrategy : IProductQualityUpdateStrategy
     {
