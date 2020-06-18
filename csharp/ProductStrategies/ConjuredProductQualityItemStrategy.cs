@@ -1,6 +1,4 @@
-﻿using csharp.ProductStrategies;
-
-namespace csharp
+﻿namespace csharp.ProductStrategies
 {
     public class ConjuredProductQualityItemStrategy : IProductQualityUpdateStrategy
     {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using csharp.ProductStrategies;
 using NUnit.Framework;
 using Shouldly;
 
-namespace csharp
+namespace csharp.Tests
 {
     [TestFixture]
     public class ConjuredItemsTests
