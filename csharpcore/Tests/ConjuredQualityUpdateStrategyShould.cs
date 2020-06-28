@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using csharpcore.QualityUpdate;
+﻿using csharpcore.QualityUpdate;
 using Shouldly;
 using Xunit;
 
-namespace csharpcore
+namespace csharpcore.Tests
 {
     public class ConjuredQualityUpdateStrategyShould
     {
