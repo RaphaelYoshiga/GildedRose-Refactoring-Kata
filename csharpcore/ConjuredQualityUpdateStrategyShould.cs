@@ -1,21 +1,22 @@
-﻿using csharp.ProductStrategies;
-using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Shouldly;
+using Xunit;
 
-namespace csharp.Tests
+namespace csharpcore
 {
-    [TestFixture]
-    public class ConjuredItemsTests
+    public class ConjuredQualityUpdateStrategyShould
     {
-        private readonly ConjuredProductQualityItemStrategy _updateStrategy;
+        private readonly ConjuredQualityUpdateStrategy _updateStrategy;
 
-        public ConjuredItemsTests()
+        public ConjuredQualityUpdateStrategyShould()
         {
-            _updateStrategy = new ConjuredProductQualityItemStrategy();
+            _updateStrategy = new ConjuredQualityUpdateStrategy();
         }
 
-        [Test]
-        public void ConjuredItemDegradesTwiceAsFast()
+        [Fact]
+        public void ItemDegradesTwiceAsFast()
         {
             var item = new Item() { Quality = 10, SellIn = 1 };
 
@@ -25,8 +26,8 @@ namespace csharp.Tests
             item.SellIn.ShouldBe(0);
         }
 
-        [Test]
-        public void ConjuredItemDegradesTwiceAsFast2()
+        [Fact]
+        public void ItemDegradesTwiceAsFast2()
         {
             var item = new Item() { Quality = 12, SellIn = 2 };
 
@@ -36,8 +37,8 @@ namespace csharp.Tests
             item.SellIn.ShouldBe(1);
         }
 
-        [Test]
-        public void ConjuredItemDegrades4TimesAsFastPastTheDate()
+        [Fact]
+        public void ItemDegrades4TimesAsFastPastTheDate()
         {
             var item = new Item() { Quality = 12, SellIn = 0 };
 
@@ -47,4 +48,6 @@ namespace csharp.Tests
             item.SellIn.ShouldBe(-1);
         }
     }
+
+
 }

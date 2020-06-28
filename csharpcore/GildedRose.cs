@@ -10,7 +10,7 @@ namespace csharpcore
 
 
 
-    public class BackstageQualityUpdateStrategy : IQualityUpdateStrategy
+    public class ConcertQualityUpdateStrategy : IQualityUpdateStrategy
     {
         public void UpdateQuality(Item item)
         {
@@ -82,9 +82,25 @@ namespace csharpcore
                 return new BrieQualityUpdateStrategy();
 
             if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                return new BackstageQualityUpdateStrategy();
+                return new ConcertQualityUpdateStrategy();
+
+            if (item.Name == "Conjured")
+                return new ConjuredQualityUpdateStrategy();
 
             return new DefaultQualityUpdateStrategy();
+        }
+    }
+
+    public class ConjuredQualityUpdateStrategy : IQualityUpdateStrategy
+    {
+        public void UpdateQuality(Item item)
+        {
+            if (item.SellIn > 0)
+                item.Quality -= 2;
+            else
+                item.Quality -= 4;
+
+            item.SellIn--;
         }
     }
 
