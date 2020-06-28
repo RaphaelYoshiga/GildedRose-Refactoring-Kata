@@ -2,22 +2,56 @@
 
 namespace csharpcore
 {
+
+    public interface IQualityItemCalculator
+    {
+        void UpdateQuality(Item item);
+    }
+
+    public class QualityItemCalculatorFactory
+    {
+        public IQualityItemCalculator Instantiate(Item item)
+        {
+            if (item.Name == "Sulfuras, Hand of Ragnaros")
+                return new SulfurasQualityItemCalculator();
+
+            return null;
+        }
+    }
+
+    public class SulfurasQualityItemCalculator : IQualityItemCalculator
+    {
+        public void UpdateQuality(Item item)
+        {
+        }
+    }
+
     public class GildedRose
     {
-        IList<Item> Items;
+        private readonly IList<Item> _items;
+        private QualityItemCalculatorFactory _factory;
+
         public GildedRose(IList<Item> Items)
         {
-            this.Items = Items;
+            this._items = Items;
+            _factory = new QualityItemCalculatorFactory();
         }
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < Items.Count; i++)
-                UpdateQuality(Items[i]);
+            for (var i = 0; i < _items.Count; i++)
+                UpdateQuality(_items[i]);
         }
 
         private void UpdateQuality(Item item)
         {
+            var qualityCalculator = _factory.Instantiate(item);
+            if (qualityCalculator != null)
+            {
+                qualityCalculator.UpdateQuality(item);
+                return;
+            }
+
             if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
                 if (item.Quality > 0)
