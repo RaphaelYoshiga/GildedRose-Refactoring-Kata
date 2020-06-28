@@ -15,7 +15,28 @@ namespace csharpcore
             if (item.Name == "Sulfuras, Hand of Ragnaros")
                 return new SulfurasQualityItemCalculator();
 
+            if (item.Name == "Aged Brie")
+                return new BrieQualityCalculator();
+
             return null;
+        }
+    }
+
+    public class BrieQualityCalculator : IQualityItemCalculator
+    {
+        public void UpdateQuality(Item item)
+        {
+            if (item.SellIn > 0)
+                item.Quality++;
+            else
+                item.Quality += 2;
+
+            if (item.Quality > 50)
+            {
+                item.Quality = 50;
+            }
+
+            item.SellIn--;
         }
     }
 
@@ -29,7 +50,7 @@ namespace csharpcore
     public class GildedRose
     {
         private readonly IList<Item> _items;
-        private QualityItemCalculatorFactory _factory;
+        private readonly QualityItemCalculatorFactory _factory;
 
         public GildedRose(IList<Item> Items)
         {
@@ -52,7 +73,7 @@ namespace csharpcore
                 return;
             }
 
-            if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
                 if (item.Quality > 0)
                 {
@@ -90,26 +111,16 @@ namespace csharpcore
 
             if (item.SellIn < 0)
             {
-                if (item.Name != "Aged Brie")
+                if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
-                    if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                    if (item.Quality > 0)
                     {
-                        if (item.Quality > 0)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
-                    }
-                    else
-                    {
-                        item.Quality = item.Quality - item.Quality;
+                        item.Quality = item.Quality - 1;
                     }
                 }
                 else
                 {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-                    }
+                    item.Quality = item.Quality - item.Quality;
                 }
             }
         }
