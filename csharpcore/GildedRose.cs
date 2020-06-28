@@ -56,10 +56,7 @@ namespace csharpcore
             {
                 if (item.Quality > 0)
                 {
-                    if (item.Name != "Sulfuras, Hand of Ragnaros")
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
+                    item.Quality = item.Quality - 1;
                 }
             }
             else
@@ -89,10 +86,7 @@ namespace csharpcore
                 }
             }
 
-            if (item.Name != "Sulfuras, Hand of Ragnaros")
-            {
-                item.SellIn = item.SellIn - 1;
-            }
+            item.SellIn = item.SellIn - 1;
 
             if (item.SellIn < 0)
             {
@@ -102,10 +96,7 @@ namespace csharpcore
                     {
                         if (item.Quality > 0)
                         {
-                            if (item.Name != "Sulfuras, Hand of Ragnaros")
-                            {
-                                item.Quality = item.Quality - 1;
-                            }
+                            item.Quality = item.Quality - 1;
                         }
                     }
                     else
