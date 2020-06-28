@@ -18,7 +18,32 @@ namespace csharpcore
             if (item.Name == "Aged Brie")
                 return new BrieQualityCalculator();
 
+            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                return new BackstageQualityCalculator();
+
             return null;
+        }
+    }
+
+    public class BackstageQualityCalculator : IQualityItemCalculator
+    {
+        public void UpdateQuality(Item item)
+        {
+            if (item.SellIn <= 0)
+                item.Quality = 0;
+            else if (item.SellIn <= 5)
+                item.Quality += 3;
+            else if (item.SellIn <= 10)
+                item.Quality += 2;
+            else
+                item.Quality++;
+
+            if (item.Quality > 50)
+            {
+                item.Quality = 50;
+            }
+
+            item.SellIn--;
         }
     }
 
@@ -73,55 +98,16 @@ namespace csharpcore
                 return;
             }
 
-            if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Quality > 0)
             {
-                if (item.Quality > 0)
-                {
-                    item.Quality = item.Quality - 1;
-                }
-            }
-            else
-            {
-                if (item.Quality < 50)
-                {
-                    item.Quality = item.Quality + 1;
-
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (item.SellIn < 11)
-                        {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality = item.Quality + 1;
-                            }
-                        }
-
-                        if (item.SellIn < 6)
-                        {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality = item.Quality + 1;
-                            }
-                        }
-                    }
-                }
+                item.Quality = item.Quality - 1;
             }
 
             item.SellIn = item.SellIn - 1;
 
-            if (item.SellIn < 0)
+            if (item.SellIn < 0 && item.Quality > 0)
             {
-                if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (item.Quality > 0)
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
-                }
-                else
-                {
-                    item.Quality = item.Quality - item.Quality;
-                }
+                item.Quality = item.Quality - 1;
             }
         }
     }
