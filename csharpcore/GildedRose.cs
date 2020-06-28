@@ -3,29 +3,14 @@
 namespace csharpcore
 {
 
-    public interface IQualityItemCalculator
+    public interface IQualityUpdateStrategy
     {
         void UpdateQuality(Item item);
     }
 
-    public class QualityItemCalculatorFactory
-    {
-        public IQualityItemCalculator Instantiate(Item item)
-        {
-            if (item.Name == "Sulfuras, Hand of Ragnaros")
-                return new SulfurasQualityItemCalculator();
 
-            if (item.Name == "Aged Brie")
-                return new BrieQualityCalculator();
 
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                return new BackstageQualityCalculator();
-
-            return null;
-        }
-    }
-
-    public class BackstageQualityCalculator : IQualityItemCalculator
+    public class BackstageQualityUpdateStrategy : IQualityUpdateStrategy
     {
         public void UpdateQuality(Item item)
         {
@@ -47,7 +32,7 @@ namespace csharpcore
         }
     }
 
-    public class BrieQualityCalculator : IQualityItemCalculator
+    public class BrieQualityUpdateStrategy : IQualityUpdateStrategy
     {
         public void UpdateQuality(Item item)
         {
@@ -65,22 +50,53 @@ namespace csharpcore
         }
     }
 
-    public class SulfurasQualityItemCalculator : IQualityItemCalculator
+    public class SulfurasQualityUpdateStrategy : IQualityUpdateStrategy
     {
         public void UpdateQuality(Item item)
         {
         }
     }
 
+    public class DefaultQualityUpdateStrategy : IQualityUpdateStrategy
+    {
+        public void UpdateQuality(Item item)
+        {
+            if (item.Quality > 0)
+                item.Quality = item.Quality - 1;
+
+            item.SellIn = item.SellIn - 1;
+
+            if (item.SellIn < 0 && item.Quality > 0)
+                item.Quality = item.Quality - 1;
+        }
+    }
+
+    public class QualityUpdateStrategyFactory
+    {
+        public IQualityUpdateStrategy Instantiate(Item item)
+        {
+            if (item.Name == "Sulfuras, Hand of Ragnaros")
+                return new SulfurasQualityUpdateStrategy();
+
+            if (item.Name == "Aged Brie")
+                return new BrieQualityUpdateStrategy();
+
+            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                return new BackstageQualityUpdateStrategy();
+
+            return new DefaultQualityUpdateStrategy();
+        }
+    }
+
     public class GildedRose
     {
         private readonly IList<Item> _items;
-        private readonly QualityItemCalculatorFactory _factory;
+        private readonly QualityUpdateStrategyFactory _factory;
 
         public GildedRose(IList<Item> Items)
         {
             this._items = Items;
-            _factory = new QualityItemCalculatorFactory();
+            _factory = new QualityUpdateStrategyFactory();
         }
 
         public void UpdateQuality()
@@ -91,24 +107,8 @@ namespace csharpcore
 
         private void UpdateQuality(Item item)
         {
-            var qualityCalculator = _factory.Instantiate(item);
-            if (qualityCalculator != null)
-            {
-                qualityCalculator.UpdateQuality(item);
-                return;
-            }
-
-            if (item.Quality > 0)
-            {
-                item.Quality = item.Quality - 1;
-            }
-
-            item.SellIn = item.SellIn - 1;
-
-            if (item.SellIn < 0 && item.Quality > 0)
-            {
-                item.Quality = item.Quality - 1;
-            }
+            var qualityUpdateStrategy = _factory.Instantiate(item);
+            qualityUpdateStrategy.UpdateQuality(item);
         }
     }
 }
